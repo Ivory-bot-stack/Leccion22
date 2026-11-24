@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lección 22 · Beneficios de practicar la gratitud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Lora:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBFAF7; --ink:#1B1B1B; --muted:#5E5A55; --coral:#E9834C; --coral-d:#C2581F;
+  --peach:#FDEBDD; --sun:#E8E58A;
+  --sans:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:500;-webkit-font-smoothing:antialiased}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:flex;overflow-y:auto;
+  padding:clamp(28px,6vw,80px) clamp(24px,9vw,140px) 110px;
+  opacity:0;visibility:hidden;transform:translateX(36px);
+  transition:opacity .5s ease,transform .5s ease,visibility 0s .5s}
+.slide.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.slide.past{transform:translateX(-36px)}
+.wrap{margin:auto 0;width:100%;max-width:920px}
+
+/* Temas */
+.light{background:var(--bg)}
+.peach{background:var(--peach)}
+.coral{background:var(--coral);color:#fff}
+.dark{background:var(--ink);color:#fff}
+
+h1,h2{font-weight:800;letter-spacing:-.025em;line-height:1.04}
+h1{font-size:clamp(2.4rem,8vw,5.4rem)}
+h2{font-size:clamp(2rem,6vw,4rem);margin-bottom:.45em}
+p{font-size:clamp(1.15rem,2.6vw,1.65rem);line-height:1.45;max-width:27em}
+p+p{margin-top:.8em}
+.small{font-size:clamp(.95rem,1.8vw,1.1rem);color:var(--muted)}
+.coral .small,.dark .small{color:rgba(255,255,255,.8)}
+b{font-weight:800;color:var(--coral-d)}
+.coral b{color:#fff;box-shadow:inset 0 -.32em 0 rgba(255,255,255,.28)}
+.dark b{color:var(--sun)}
+.serif{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--coral)}
+.coral .serif{color:#fff}
+
+.badge{width:clamp(64px,10vw,92px);aspect-ratio:1;border-radius:50%;background:var(--sun);color:var(--ink);display:grid;place-items:center;font-size:clamp(30px,5vw,46px);margin-bottom:clamp(20px,4vw,36px)}
+.badge .i{stroke-width:1.6}
+.peach .badge{background:#fff}
+.dark .badge{background:var(--sun)}
+
+/* Portada */
+.cover .lesson{font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,3.5vw,2.2rem);color:var(--coral);margin-bottom:.4em}
+.cover h1 span{display:block;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--coral);letter-spacing:0}
+.cover p{margin-top:1.4em}
+
+/* Versículo */
+.verse q{display:block;quotes:none;font-family:var(--serif);font-size:clamp(1.5rem,4.4vw,2.9rem);line-height:1.3;margin:.5em 0 .9em}
+.verse mark{background:linear-gradient(transparent 60%,rgba(255,255,255,.38) 60%);color:inherit;font-style:italic}
+.ref{font-weight:800;font-size:clamp(1rem,2vw,1.2rem)}
+
+/* Jesús */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,3vw,32px);margin-top:1.4em}
+.two div{border-top:3px solid var(--sun);padding-top:14px}
+.two strong{display:block;font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:var(--sun);margin-bottom:6px}
+.two span{font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.4}
+
+/* Preguntas */
+.qs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,20px);margin-top:1.2em}
+.qs div{background:#fff;border-radius:20px;padding:clamp(18px,3vw,28px);font-weight:600;font-size:clamp(1.05rem,2.3vw,1.4rem);line-height:1.35;border-left:6px solid var(--coral)}
+
+/* Koinonía */
+.ways{font-weight:800;font-size:clamp(1.5rem,4vw,2.6rem);line-height:1.25;margin:.2em 0 .7em;max-width:16em}
+
+/* Pasos */
+.step{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+.step.show{opacity:1;transform:none}
+
+/* Controles */
+.ctrl{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:5;
+  display:flex;align-items:center;gap:14px;background:#fff;border-radius:99px;padding:6px;box-shadow:0 8px 28px -8px rgba(0,0,0,.3)}
+.ctrl button{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:1.3rem;background:var(--coral);color:#fff;transition:.2s}
+.ctrl button:hover{background:var(--coral-d)}
+.ctrl button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.ctrl button[disabled]{opacity:.3;cursor:default}
+.ctrl .i{stroke-width:2.6}
+.pos{min-width:84px;text-align:center;font-size:.85rem;font-weight:800;color:var(--ink)}
+.bar{height:4px;background:#EFE7DE;border-radius:4px;margin-top:5px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--coral);transition:width .4s}
+
+@media(max-width:640px){
+  .two,.qs{grid-template-columns:1fr}
+  .slide{padding-bottom:100px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="pray" viewBox="0 0 24 24"><path d="M12 3c-2.2 3-3.2 6-3.2 9l3.2 4 3.2-4c0-3-1-6-3.2-9z"/><path d="M12 8v8"/><path d="M4 21l8-5 8 5"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/><path d="M8 11h8M8 14h5"/></symbol>
+  <symbol id="smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="send" viewBox="0 0 24 24"><path d="M22 2L15 22l-4-9-9-4z"/><path d="M22 2L11 13"/></symbol>
+  <symbol id="users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L21 2M16 7l3 3"/></symbol>
+  <symbol id="left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+</svg>
+
+<main class="deck" id="deck">
+
+  <!-- 1 Portada -->
+  <section class="slide light cover"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#pray"/></svg></div>
+    <div class="lesson">Lección 22</div>
+    <h1>Beneficios de <span>practicar la gratitud</span></h1>
+    <p class="step small">Hoy vamos a ver que dar gracias es parte de la voluntad de Dios, y que la gratitud activa la fe y el favor de Dios.</p>
+  </div></section>
+
+  <!-- 2 Versículo -->
+  <section class="slide coral verse"><div class="wrap">
+    <div class="ref">1 Tesalonicenses 5:16-18</div>
+    <q>Estad siempre gozosos. Orad sin cesar. <mark>Dad gracias en todo</mark>, porque ésta es la voluntad de Dios para con vosotros en Cristo Jesús.</q>
+  </div></section>
+
+  <!-- 3 Idea central -->
+  <section class="slide light"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#key"/></svg></div>
+    <h2>Dar gracias es una <span class="serif">decisión</span></h2>
+    <p class="step">No depende de cómo me sienta. Es una <b>decisión espiritual</b> basada en lo que Dios quiere.</p>
+    <p class="step">Y vale también cuando las cosas se ponen difíciles.</p>
+  </div></section>
+
+  <!-- 4 Idea central 2 -->
+  <section class="slide peach"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#sun"/></svg></div>
+    <h2>Nos enfoca en Dios</h2>
+    <p class="step">Cuando damos gracias, <b>reconocemos lo bueno que es Dios</b>.</p>
+    <p class="step">Y dejamos que Su presencia llene nuestro corazón.</p>
+  </div></section>
+
+  <!-- 5 Voluntad -->
+  <section class="slide light"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#book"/></svg></div>
+    <h2>Es la voluntad de Dios</h2>
+    <p>La Biblia nos enseña a agradecer <b>en todo momento</b>, incluso cuando las circunstancias no son buenas.</p>
+  </div></section>
+
+  <!-- 6 Fe -->
+  <section class="slide peach"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#flame"/></svg></div>
+    <h2>Activa la fe y el favor de Dios</h2>
+    <p>Dar gracias <b>pone en marcha nuestra fe</b> y abre el camino para los milagros.</p>
+  </div></section>
+
+  <!-- 7 Jesús -->
+  <section class="slide dark"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#pray"/></svg></div>
+    <h2>Jesús dio gracias <span class="serif" style="color:var(--sun)">antes</span> del milagro</h2>
+    <div class="two">
+      <div class="step"><strong>Juan 6:11</strong><span>Dio gracias al Padre antes de multiplicar los panes.</span></div>
+      <div class="step"><strong>Juan 11:41</strong><span>Dio gracias antes de resucitar a Lázaro.</span></div>
+    </div>
+  </div></section>
+
+  <!-- 8 Corazón y boca -->
+  <section class="slide light"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#chat"/></svg></div>
+    <h2>Lo que hay en el corazón, se dice</h2>
+    <p>Cuando el corazón está lleno de gratitud, <b>la boca lo expresa</b>.</p>
+  </div></section>
+
+  <!-- 9 Servir -->
+  <section class="slide peach"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#smile"/></svg></div>
+    <h2>Nos lleva a servir con alegría</h2>
+    <p>La gratitud nos llena del <b>Espíritu Santo</b> y nos impulsa a servir a Dios con alegría.</p>
+    <p class="small">Efesios 5:18-20</p>
+  </div></section>
+
+  <!-- 10 Recordar -->
+  <section class="slide light"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#send"/></svg></div>
+    <h2>Acordarnos de lo que Dios ha hecho</h2>
+    <p class="step">Al recordarlo, nace el deseo de <b>compartir esa bondad con otros</b>.</p>
+    <p class="step">Él sigue salvando, sanando y transformando vidas en todo el mundo.</p>
+    <p class="step small">Mientras compartimos la cena con los hermanos, démosle gracias por todo esto.</p>
+  </div></section>
+
+  <!-- 11 Preguntas -->
+  <section class="slide peach"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#heart"/></svg></div>
+    <h2>Para pensar</h2>
+    <div class="qs">
+      <div class="step">¿Por qué cosas puedo darle gracias a Dios hoy?</div>
+      <div class="step">¿Estoy agradeciendo solamente cuando todo va bien?</div>
+      <div class="step">¿Qué ha hecho Dios en mi vida que necesito recordar?</div>
+      <div class="step">¿Cómo puedo demostrar gratitud con mis acciones?</div>
+    </div>
+  </div></section>
+
+  <!-- 12 Koinonía -->
+  <section class="slide coral"><div class="wrap">
+    <div class="badge"><svg class="i"><use href="#users"/></svg></div>
+    <h2>Koinonía</h2>
+    <p class="step">Al terminar, pasen un rato juntos y <b>cuenten por qué están agradecidos</b>.</p>
+    <div class="ways step">Un café, una comida o una actividad para romper el hielo.</div>
+    <p class="step">Celebren la bondad de Dios y cuenten cómo Él ha transformado su vida.</p>
+  </div></section>
+
+</main>
+
+<div class="ctrl" role="group" aria-label="Navegación">
+  <button id="prev" aria-label="Anterior"><svg class="i"><use href="#left"/></svg></button>
+  <div><div class="pos" id="pos">1 / 12</div><div class="bar"><i id="fill"></i></div></div>
+  <button id="next" aria-label="Siguiente"><svg class="i"><use href="#right"/></svg></button>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var n = slides.length, cur = 0;
+  var pos = document.getElementById('pos'), fill = document.getElementById('fill');
+  var prev = document.getElementById('prev'), next = document.getElementById('next');
+
+  function steps(s){ return s.querySelectorAll('.step'); }
+  function show(i, revealAll){
+    cur = Math.max(0, Math.min(n - 1, i));
+    slides.forEach(function(s, k){
+      s.classList.toggle('on', k === cur);
+      s.classList.toggle('past', k < cur);
+      if (k !== cur || revealAll === false){
+        steps(s).forEach(function(e){ e.classList.remove('show'); });
+      }
+    });
+    if (revealAll) steps(slides[cur]).forEach(function(e){ e.classList.add('show'); });
+    slides[cur].scrollTop = 0;
+    pos.textContent = (cur + 1) + ' / ' + n;
+    fill.style.width = ((cur + 1) / n * 100) + '%';
+    prev.disabled = cur === 0;
+    next.disabled = cur === n - 1 && !hidden();
+    try { history.replaceState(null, '', '#' + (cur + 1)); } catch(e){}
+  }
+  function hidden(){ return slides[cur].querySelector('.step:not(.show)'); }
+  function forward(){
+    var h = hidden();
+    if (h){ h.classList.add('show'); next.disabled = cur === n - 1 && !hidden(); }
+    else if (cur < n - 1) show(cur + 1, false), reveal();
+  }
+  function reveal(){ var h = hidden(); if (h) h.classList.add('show'); next.disabled = cur === n - 1 && !hidden(); }
+  function back(){
+    var shown = slides[cur].querySelectorAll('.step.show');
+    if (shown.length > 1){ shown[shown.length - 1].classList.remove('show'); next.disabled = false; }
+    else if (cur > 0) show(cur - 1, true);
+  }
+
+  next.addEventListener('click', forward);
+  prev.addEventListener('click', back);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); forward(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); back(); }
+    if (e.key === 'Home') show(0, false), reveal();
+    if (e.key === 'End') show(n - 1, true);
+  });
+  var x0 = null, y0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5){ dx < 0 ? forward() : back(); }
+    x0 = null;
+  }, {passive:true});
+
+  var start = parseInt((location.hash || '').slice(1), 10);
+  if (start > 1 && start <= n){ show(start - 1, true); } else { show(0, false); setTimeout(reveal, 700); }
+})();
+</script>
+</body>
+</html>
